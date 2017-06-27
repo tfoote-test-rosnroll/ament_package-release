@@ -15,7 +15,7 @@ tracks:
     devel_branch: master
     last_version: 0.0.0
     name: upstream
-    patches: null
+    patches: r2b2
     release_inc: '12'
     release_repo_url: git@github.com:nuclearsandwich/ament_package-release
     release_tag: master
