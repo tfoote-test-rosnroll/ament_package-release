@@ -13,14 +13,14 @@
 # limitations under the License.
 
 
-class Dependency(object):
+class Dependency:
     __slots__ = [
         'name',
         'version_lt',
         'version_lte',
         'version_eq',
         'version_gte',
-        'version_gt'
+        'version_gt',
     ]
 
     def __init__(self, name, **kwargs):
@@ -36,8 +36,8 @@ class Dependency(object):
     def __eq__(self, other):
         if not isinstance(other, Dependency):
             return False
-        return all([getattr(self, attr) == getattr(other, attr)
-                    for attr in self.__slots__])
+        return all(getattr(self, attr) == getattr(other, attr)
+                   for attr in self.__slots__)
 
     def __str__(self):
         return self.name
