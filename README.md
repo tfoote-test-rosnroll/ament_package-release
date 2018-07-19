@@ -1,3 +1,26 @@
+## ament_package (bouncy) - 0.5.2-0
+
+The packages in the `ament_package` repository were released into the `bouncy` distro by running `/usr/bin/bloom-release ament_package -r bouncy -t bouncy` on `Thu, 19 Jul 2018 21:38:19 -0000`
+
+The `ament_package` package was released.
+
+Version of package(s) in repository `ament_package`:
+
+- upstream repository: https://github.com/ament/ament_package.git
+- release repository: https://github.com/ros2-gbp/ament_package-release.git
+- rosdistro version: `0.5.1-0`
+- old version: `0.5.1-0`
+- new version: `0.5.2-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.6`
+- catkin_pkg version: `0.4.6`
+- rosdep version: `0.12.2`
+- rosdistro version: `0.6.8`
+- vcstools version: `0.1.40`
+
+
 ## ament_package (bouncy) - 0.5.1-0
 
 The packages in the `ament_package` repository were released into the `bouncy` distro by running `git bloom-release bouncy` on `Thu, 14 Jun 2018 19:32:00 -0000`
