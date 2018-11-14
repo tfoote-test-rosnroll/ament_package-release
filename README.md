@@ -1,3 +1,26 @@
+## ament_package (crystal) - 0.6.0-0
+
+The packages in the `ament_package` repository were released into the `crystal` distro by running `/home/steven/osrf/venv/bloom-py2-dev/bin/bloom-release -d -r crystal -n ament_package --override-release-repository-push-url git@github.com:ros2-gbp/ament_package-release` on `Wed, 14 Nov 2018 16:44:05 -0000`
+
+The `ament_package` package was released.
+
+Version of package(s) in repository `ament_package`:
+
+- upstream repository: https://github.com/ament/ament_package.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.6.0-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.8`
+- catkin_pkg version: `0.4.8`
+- rosdep version: `0.12.2`
+- rosdistro version: `0.7.0`
+- vcstools version: `0.1.40`
+
+
 ## ament_package (bouncy) - 0.5.2-0
 
 The packages in the `ament_package` repository were released into the `bouncy` distro by running `/usr/bin/bloom-release ament_package -r bouncy -t bouncy` on `Thu, 19 Jul 2018 21:38:19 -0000`
