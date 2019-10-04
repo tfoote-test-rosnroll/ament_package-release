@@ -111,7 +111,7 @@ def add_package_runtime_dependencies(path, packages):
     marker_file = path.parents[1] / 'package_run_dependencies' / path.name
     if marker_file.exists():
         content = marker_file.read_text()
-        dependencies = set(content.split(os.pathsep) if content else [])
+        dependencies = set(content.split(';') if content else [])
     packages[marker_file.name] = dependencies
 
 
@@ -182,6 +182,19 @@ def get_commands(pkg_name, prefix, primary_extension, additional_extension):
     if os.path.exists(package_dsv_path):
         commands += process_dsv_file(
             package_dsv_path, prefix, primary_extension, additional_extension)
+    else:
+        for ext in (
+            [additional_extension] if additional_extension else []
+        ) + [primary_extension]:
+            package_ext_path = os.path.join(
+                prefix, 'share', pkg_name, 'local_setup.' + ext)
+            if os.path.exists(package_ext_path):
+                commands += [
+                    FORMAT_STR_INVOKE_SCRIPT.format_map({
+                        'prefix': prefix,
+                        'script_path': package_ext_path})]
+                break
+
     return commands
 
 
