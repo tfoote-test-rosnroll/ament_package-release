@@ -1,3 +1,26 @@
+## ament_package (eloquent) - 0.8.3-1
+
+The packages in the `ament_package` repository were released into the `eloquent` distro by running `/usr/bin/bloom-release -r eloquent ament_package --override-release-repository-push-url git@github.com:ros2-gbp/ament_package-release` on `Fri, 11 Oct 2019 21:04:37 -0000`
+
+The `ament_package` package was released.
+
+Version of package(s) in repository `ament_package`:
+
+- upstream repository: https://github.com/ament/ament_package.git
+- release repository: https://github.com/ros2-gbp/ament_package-release.git
+- rosdistro version: `0.8.2-1`
+- old version: `0.8.2-1`
+- new version: `0.8.3-1`
+
+Versions of tools used:
+
+- bloom version: `0.8.0`
+- catkin_pkg version: `0.4.13`
+- rosdep version: `0.16.1`
+- rosdistro version: `0.7.4`
+- vcstools version: `0.1.42`
+
+
 ## ament_package (dashing) - 0.7.3-1
 
 The packages in the `ament_package` repository were released into the `dashing` distro by running `/usr/bin/bloom-release ament_package -r dashing -e --override-release-repository-push-url git@github.com:ros2-gbp/ament_package-release` on `Fri, 11 Oct 2019 20:28:46 -0000`
