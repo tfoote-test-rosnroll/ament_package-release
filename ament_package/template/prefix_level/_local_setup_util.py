@@ -73,8 +73,9 @@ def main(argv=sys.argv[1:]):  # noqa: D103
             args.additional_extension
         ):
             print(line)
-        for line in _remove_trailing_separators():
-            print(line)
+
+    for line in _remove_trailing_separators():
+        print(line)
 
 
 def get_packages(prefix_path):
@@ -220,12 +221,24 @@ def process_dsv_file(
     lines = content.splitlines()
 
     basenames = OrderedDict()
-    for line in lines:
-        type_, remainder = line.split(';', 1)
+    for i, line in enumerate(lines):
+        # skip over empty or whitespace-only lines
+        if not line.strip():
+            continue
+        try:
+            type_, remainder = line.split(';', 1)
+        except ValueError:
+            raise RuntimeError(
+                "Line %d in '%s' doesn't contain a semicolon separating the "
+                'type from the arguments' % (i + 1, dsv_path))
         if type_ != DSV_TYPE_SOURCE:
             # handle non-source lines
-            commands += handle_dsv_types_except_source(
-                type_, remainder, prefix)
+            try:
+                commands += handle_dsv_types_except_source(
+                    type_, remainder, prefix)
+            except RuntimeError as e:
+                raise RuntimeError(
+                    "Line %d in '%s' %s" % (i + 1, dsv_path, e)) from e
         else:
             # group remaining source lines by basename
             path_without_ext, ext = os.path.splitext(remainder)
@@ -270,7 +283,12 @@ def process_dsv_file(
 def handle_dsv_types_except_source(type_, remainder, prefix):
     commands = []
     if type_ in (DSV_TYPE_SET, DSV_TYPE_SET_IF_UNSET):
-        env_name, value = remainder.split(';', 1)
+        try:
+            env_name, value = remainder.split(';', 1)
+        except ValueError:
+            raise RuntimeError(
+                "doesn't contain a semicolon separating the environment name "
+                'from the value')
         try_prefixed_value = os.path.join(prefix, value) if value else prefix
         if os.path.exists(try_prefixed_value):
             value = try_prefixed_value
@@ -284,7 +302,12 @@ def handle_dsv_types_except_source(type_, remainder, prefix):
         DSV_TYPE_PREPEND_NON_DUPLICATE,
         DSV_TYPE_PREPEND_NON_DUPLICATE_IF_EXISTS
     ):
-        env_name_and_values = remainder.split(';')
+        try:
+            env_name_and_values = remainder.split(';')
+        except ValueError:
+            raise RuntimeError(
+                "doesn't contain a semicolon separating the environment name "
+                'from the values')
         env_name = env_name_and_values[0]
         values = env_name_and_values[1:]
         for value in values:
@@ -304,7 +327,8 @@ def handle_dsv_types_except_source(type_, remainder, prefix):
             else:
                 commands += _prepend_unique_value(env_name, value)
     else:
-        assert False, 'Unknown environment hook type: ' + type_
+        raise RuntimeError(
+            'contains an unknown environment hook type: ' + type_)
     return commands
 
 
@@ -363,4 +387,9 @@ def _set_if_unset(name, value):
 
 
 if __name__ == '__main__':  # pragma: no cover
-    main()
+    try:
+        rc = main()
+    except RuntimeError as e:
+        print(str(e), file=sys.stderr)
+        rc = 1
+    sys.exit(rc)
